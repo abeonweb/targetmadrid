@@ -14,7 +14,7 @@ function FormDropzone({className}) {
       {isDragActive ? (
         <p>Arrastra hasta aqui ...</p>
       ) : (
-        <p>Arrastra sus archivos aqui, o haga click para subirlos</p>
+        <p className="px-6 md:px-20 leading-relaxed">Arrastra sus archivos aqui, o haga click para subirlos</p>
       )}
     </div>
   );
@@ -49,16 +49,16 @@ const Form = () => {
           placeholder="Empresa"
           className="mb-3 py-2 px-4 rounded-2xl border border-gray-400"
         />
-        <FormDropzone className="my-4 py-4 px-4 text-xs text-center text-gray-500 bg-white border-2 border-dashed border-gray-500 rounded-xl" />
+        <FormDropzone className="my-4 py-8 px-4 text-xs text-center text-gray-500 bg-white border-2 border-dashed border-gray-500 rounded-xl" />
         <fieldset className="mb-3 py-2 px-4">
           <label>
-            <input type="checkbox" name="privacidad" id="" className="" />{" "}
+            <input type="checkbox" name="privacidad" id="" className="text-xl" />{" "}
             Acepto Política de Privacidad
           </label>
         </fieldset>
         <button
           type="submit"
-          className="bg-green-600 px-6 py-3 text-white rounded"
+          className="bg-green-600 px-6 py-3 text-white rounded shadow-xl"
         >
           Enviar
         </button>
