@@ -4,7 +4,7 @@ import { useDropzone } from "react-dropzone";
 
 function FormDropzone({className}) {
   const onDrop = useCallback((acceptedFiles) => {
-    // Do something with the files
+    console.log(acceptedFiles);
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
@@ -12,9 +12,9 @@ function FormDropzone({className}) {
     <div {...getRootProps({className: className})}>
       <input {...getInputProps()} />
       {isDragActive ? (
-        <p>Drop the files here ...</p>
+        <p>Arrastra hasta aqui ...</p>
       ) : (
-        <p>Drag 'n' drop some files here, or click to select files</p>
+        <p>Arrastra sus archivos aqui, o haga click para subirlos</p>
       )}
     </div>
   );
@@ -22,7 +22,7 @@ function FormDropzone({className}) {
 
 const Form = () => {
   return (
-    <section className="z-20 py-8 px-5 rounded-3xl bg-white/50 justify-self-end my-2 mx-2 md:mx-10">
+    <section className="z-20 py-8 px-5 rounded-3xl bg-white/50 justify-self-end my-2 mx-2 md:mx-10 max-w-md">
       <h2 className="mb-4 text-2xl md:3xl text-gray-700">
         Recibe un presupuesto por tus traducciones.
       </h2>
@@ -60,7 +60,7 @@ const Form = () => {
           type="submit"
           className="bg-green-600 px-6 py-3 text-white rounded"
         >
-          Send message
+          Enviar
         </button>
       </form>
     </section>
