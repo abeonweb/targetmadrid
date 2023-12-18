@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Contact = () => {
   return (
-    <section className="py-20 px-2 bg-gradient-to-b from-gray-200 via-blue-300 via-blue-500 to-gray-400 flex flex-col">
+    <section className="py-20 px-2 bg-gradient-to-b from-blue-100 via-blue-300 via-blue-500 to-gray-200 flex flex-col">
       <article className="bg-white shadow-2xl h-1/2 pt-8 pb-2 lg:pt-16 lg:pb-10 lg:mx-10 urounded">
         <div className="text-center px-4">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold pb-5">
@@ -49,7 +49,7 @@ const Contact = () => {
             </li>
           </ul>
 
-          <div className="pt-10 border-orange-500 lg:border-l-[3px] lg:my-10 lg:w-3/5">
+          <div className="pt-10 pb-6 lg:pb-1 border-orange-500 lg:border-l-[3px] lg:my-10 lg:w-3/5">
             {/* address and google map */}
             <div className="mx-auto">
               <div className="w-12 mx-auto pb-5">
