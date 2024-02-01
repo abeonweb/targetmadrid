@@ -1,8 +1,7 @@
 "use client";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { XMarkIcon } from "@heroicons/react/20/solid";
-
+import { XMarkIcon, DocumentTextIcon } from "@heroicons/react/24/outline";
 import submitHandler from "../utils/submitHandler.utils";
 
 const initialValues = {
@@ -12,11 +11,13 @@ const initialValues = {
   telefono: "",
   acepto: false,
 };
+
 const Form = () => {
   const [formValues, setFormValues] = useState(initialValues);
   const [files, setFiles] = useState([]);
   const [rejected, setRejected] = useState([]);
-
+  const [isSending, setIsSending] = useState(false);
+  
   function FormDropzone({ className }) {
     const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
       if (acceptedFiles?.length) {
@@ -48,7 +49,8 @@ const Form = () => {
         {isDragActive ? (
           <p>Arrastra hasta aqui ...</p>
         ) : (
-          <div>
+          <div className="flex flex-col items-center">
+            <DocumentTextIcon className="text-gray-400 w-6 pb-1" />
             <p>Arrastra sus archivos aqui (2mb max),</p>
             <p> o haga click para subirlos</p>
           </div>
@@ -68,16 +70,23 @@ const Form = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await submitHandler(files, formValues);
-    setFormValues(initialValues);
-    setFiles([]);
-    setRejected([]);
+    setIsSending(true);
+    const isSent = await submitHandler(files, formValues);
+    if (isSent) {
+      setFormValues(initialValues);
+      setFiles([]);
+      setRejected([]);
+      setIsSending(false);
+    } else {
+      console.log("error during submit. Please try again later");
+    }
   };
 
   const handleFormUpdate = (e) => {
     const { name, value } = e.target;
     setFormValues((prevValues) => {
-      if (name === "acepto") return { ...prevValues, [name]: !prevValues.acepto };
+      if (name === "acepto")
+        return { ...prevValues, [name]: !prevValues.acepto };
       else return { ...prevValues, [name]: value };
     });
   };
@@ -88,7 +97,10 @@ const Form = () => {
       <h2 className="mb-4 text-2xl md:3xl text-gray-700">
         Recibe un presupuesto por tus traducciones.
       </h2>
-      <form onSubmit={handleSubmit} action={'/success'} className="flex flex-col">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col"
+      >
         <input
           type="text"
           placeholder="Persona de contacto"
@@ -123,7 +135,7 @@ const Form = () => {
           value={empresa}
           onChange={handleFormUpdate}
         />
-        <FormDropzone className="my-4 py-8 px-4 text-xs text-center text-gray-500 bg-white border-2 border-dashed border-gray-500 rounded-xl" />
+        <FormDropzone className="my-4 py-4 px-4 text-xs text-center text-gray-500 bg-white border-2 border-dashed border-gray-400 rounded-xl" />
         {files.length > 0 && (
           <ul className="pb-3">
             {files.map((file) => (
@@ -187,7 +199,12 @@ const Form = () => {
         </fieldset>
         <button
           type="submit"
-          className="bg-green-600 px-6 py-3 text-white rounded shadow-xl"
+          disabled={isSending}
+          className={`${
+            isSending
+              ? "bg-green-300 cursor-not-allowed"
+              : "bg-green-600 cursor-pointer"
+          } px-6 py-3 text-white rounded shadow-xl`}
         >
           Enviar
         </button>
