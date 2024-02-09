@@ -1,13 +1,13 @@
 'use client'
 import { useState } from 'react';
-import Link from "next/link";
-import { getSubmissions, getNewSubmissions } from "@/components/utils/getSubmissions";
+import { getSubmissions, getNewSubmissions } from "@/components/utils/getSubmissions.utils";
 import { redirect } from "next/navigation";
+import { CheckCircleIcon, CloudArrowDownIcon, TrashIcon } from "@heroicons/react/20/solid";
 
-const URL = process.env.NEXT_PUBLIC_CLOUDINARY_URL;
 
-const Dashboard = ({ isLoggedIn = false }) => {
+const Dashboard = ({ isLoggedIn = true }) => {
   const [docs, setDocs] = useState([]);
+
   const getAllDocs = async () => {
     const allDocs = await getSubmissions()
     setDocs(allDocs);
@@ -16,6 +16,43 @@ const Dashboard = ({ isLoggedIn = false }) => {
   const getNewDocs = async () => {
     const allDocs = await getNewSubmissions()
     setDocs(allDocs);
+  }
+
+  const getContentType = (name)=>{
+    switch(name){
+      case name.includes('pdf'):
+        return 'application/pdf';
+      case name.includes('odt'):
+        return 'application/vnd.oasis.opendocument.text';
+      default:
+        return 'text/plain';
+    }
+  }
+
+  const downloadFile = (file)=>{
+    const contentType = getContentType(file.name);
+    fetch(file.url, {
+      method:"GET",
+      headers: {
+        "Content-type": contentType,
+        "Access-Control-Allow-Origin":"http://localhost:3000/, *"
+      }
+    })
+    .then(res => res.blob())
+    .then(blob => {
+      const url = window.URL.createObjectURL(new Blob([blob]));
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = file.name;
+
+      document.body.appendChild(link);
+
+      link.click();
+
+      link.parentNode.removeChild(link);
+    })
+
   }
 
   if (!isLoggedIn) {
@@ -29,27 +66,34 @@ const Dashboard = ({ isLoggedIn = false }) => {
         <button onClick={getAllDocs} className="mt-10 px-8 py-4 underline text-blue-700 min-w-[120px]">Todos</button>
         <button onClick={getNewDocs} className="mt-10 px-8 py-4 underline text-blue-700 min-w-[120px]">Nuevos</button>
       </div>
-      <ul className="grid-cols-5 text-center hidden md:grid">
-        <li className="p-1">Nombre</li>
-        <li className="p-1">Empresa</li>
-        <li className="p-1">Email</li>
-        <li className="p-1">Telefono</li>
-        <li className="p-1">Archivos</li>
-      </ul>
       {
-        docs && <ul>
-          {docs.map(({ nombre, nuevo, telefono, empresa, uid, files }, i) => {
-            return <li key={i + telefono} className="mx-2 mb-3 p-2 border-2 border-blue-800">
+        docs && <ul className="mx-1">
+          {docs.map(({ nombre, nuevo, telefono, empresa, uid, files }) => {
+            return <li key={uid} className="mb-2 border-2 border-gray-500 rounded shadow-xl max-w-xl">
               <ul>
-                <li className="p-1 flex flex-col justify-around"><span className="md:hidden">Nombre</span>{nombre}</li>
-                <li className="p-1 flex flex-col justify-around"><span className="md:hidden">Empresa</span>{empresa}</li>
-                <li className="p-1 flex flex-col justify-around"><span className="md:hidden"></span>{nuevo}</li>
-                <li className="p-1 flex flex-col justify-around"><span className="md:hidden"></span>{telefono}</li>
+                {/* <li className="py-1 flex flex-col justify-around"><div className="pl-2 border-b border-gray-500 md:hidden"></div><div className="pl-2 border-b-2 border-gray-700 md:hidden">{nuevo}</div></li> */}
+                <li className="flex flex-col justify-around"><div className="pl-2 py-2 border-b border-gray-500 text-xs font-semibold">Nombre</div><div className="pl-2 py-2 border-b-2 border-gray-700">{nombre}</div></li>
+                <li className="flex flex-col justify-around"><div className="pl-2 py-2 border-b border-gray-500 text-xs font-semibold">Empresa</div><div className="pl-2 py-2 border-b-2 border-gray-700">{empresa}</div></li>
+                <li className="flex flex-col justify-around"><div className="pl-2 py-2 border-b border-gray-500 text-xs font-semibold">Telefono</div><div className="pl-2 py-2 border-b-2 border-gray-700">{telefono}</div></li>
                 {/* <li className="p-1 flex flex-col justify-around"><span className="md:hidden"></span>{files.length > 0 && <Link href={`/:${uid}`} className="hover:underline text-blue-500">Ver Archivos</Link>}</li> */}
-                <li className="p-1 flex flex-col justify-around">
-                  <span className="md:hidden"></span>
+                <li className="py-1 flex flex-col justify-around">
+                  <div className="pl-2 py-2 border-b border-gray-500 text-xs font-semibold">Archivos</div>
 
-                  {files.length > 0 ? <ul>{files.map(file => <li key={file.name}><a href={file.url} download>{file.name}</a></li>)}</ul> : <p>No hay archivos</p>}
+                  {files.length > 0 ? (
+                    <ul>
+                      {files.map((file, i) => {
+                        return <li key={i + file.name} className="mb-1 p-2 border-b border-gray-300">
+                          <button onClick={()=>downloadFile(file)} className="text-sm text-blue-500 text-normal cursor-pointer">
+                            {file.isNew && <CheckCircleIcon className="w-4 text-blue-500"/>}
+                          {file.name}</button>
+                          <CloudArrowDownIcon className="w-4 text-gray-600"/>
+                          <TrashIcon className="w-4 text-gray-600"/>
+
+                        </li>
+                      }
+                      )}</ul>)
+                    : <p className="p-2">No hay archivos</p>
+                  }
                 </li>
               </ul>
             </li>
@@ -61,4 +105,4 @@ const Dashboard = ({ isLoggedIn = false }) => {
   )
 }
 
-export default Dashboard
+export default Dashboard;
