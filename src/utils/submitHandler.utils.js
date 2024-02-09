@@ -1,6 +1,6 @@
 
 import { v4 as uuidv4 } from "uuid";
-import { updateDb, uploadFile, getDownloadUrlPath } from "./firebase.utils";
+// import { updateDb, uploadFile, getDownloadUrlPath } from "./firebase.utils";
 
 const updateCollection = async (docId, obj) => {
     await updateDb(docId, obj);
@@ -37,7 +37,7 @@ const updateCollection = async (docId, obj) => {
 
 const uploadFilesToFirebase = async (files, uid) => {
     return await Promise.all(files.map(async file => {
-        const url = await uploadFile(file, uid);
+        // const url = await uploadFile(file, uid);
 
         return {name:file.name, url, new: true}
     }))
