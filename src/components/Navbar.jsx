@@ -3,11 +3,10 @@ import { useState, useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Bars3BottomLeftIcon, XMarkIcon } from "@heroicons/react/20/solid";
-import { signOutUser } from "../utils/firebase.utils";
-import { UserContext } from "./UserProvider";
+// import { UserContext } from "./UserProvider";
 
 const Navbar = ({ handleNavClose }) => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser } = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(user);
   
@@ -17,9 +16,9 @@ const Navbar = ({ handleNavClose }) => {
 
   const handleSignOutUser = async ()=>{
     console.log("trigger sign out", user);
-    await signOutUser();
-    setUser(null);
-    setCurrentUser(null);
+    // await signOutUser();
+    // setUser(null);
+    // setCurrentUser(null);
   }
 
   return (
@@ -79,7 +78,7 @@ const Navbar = ({ handleNavClose }) => {
               <Link href={""}>Traducciones Juradas</Link>
             </li>
             <li className="px-3 py-2" onClick={handleMenuClick}>
-              <Link href={""}>Contacto</Link>
+              <Link href={"#contact"}>Contacto</Link>
             </li>
             <li className="px-3 py-2" onClick={handleMenuClick}>
               {currentUser ? (
