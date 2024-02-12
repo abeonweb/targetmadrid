@@ -2,7 +2,6 @@
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { XMarkIcon, DocumentTextIcon } from "@heroicons/react/24/outline";
-import submitHandler from "../utils/submitHandler.utils";
 
 const initialValues = {
   nombre: "",
@@ -71,7 +70,7 @@ const Form = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSending(true);
-    const isSent = await submitHandler(files, formValues);
+    const isSent = true /*await submitHandler(files, formValues);*/
     if (isSent) {
       setFormValues(initialValues);
       setFiles([]);
