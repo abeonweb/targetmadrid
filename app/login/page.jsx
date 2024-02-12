@@ -8,7 +8,7 @@ const initialValues = {
   password: "",
 };
 
-const Login = () => {
+export default function Page() {
   const router = useRouter();
   const [form, setForm] = useState(initialValues);
   const { email, password } = form;
@@ -70,4 +70,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+

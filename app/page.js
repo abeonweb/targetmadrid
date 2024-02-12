@@ -2,7 +2,7 @@ import Form from "./components/Form";
 import Contact from "./components/Contact";
 
 
-export default function Home() {
+export default function Page() {
   return (
     <main className="flex flex-col justify-between text-gray-700">
       
