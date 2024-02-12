@@ -1,5 +1,5 @@
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import { Roboto } from 'next/font/google'
 import './globals.css'
 

@@ -1,5 +1,5 @@
-import Form from "../components/Form";
-import Contact from "../components/Contact";
+import Form from "./components/Form";
+import Contact from "./components/Contact";
 
 
 export default function Home() {
@@ -19,5 +19,5 @@ export default function Home() {
     </main>
   )
 }
-// Image by <a href="https://www.freepik.com/free-photo/medium-shot-woman-holding-project_11311098.htm#page=2&query=woman%20with%20documents&position=39&from_view=search&track=ais&uuid=11a90d94-1bd6-4bec-82c8-cb23e3466405">Freepik</a>
+
 

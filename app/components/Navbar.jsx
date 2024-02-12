@@ -69,13 +69,13 @@ const Navbar = ({ handleNavClose }) => {
         >
           <ul className="flex flex-col bg-white tracking-wider font-medium text-xs text-orange-500 pt-4 pb-10 lg:py-0 lg:flex-row lg:items-center lg:justify-end lg:pr-10">
             <li className="px-3 py-2" onClick={handleMenuClick}>
-              <Link href={""}>Traducciones</Link>
+              <Link href={"#"}>Traducciones</Link>
             </li>
             <li className="px-3 py-2" onClick={handleMenuClick}>
-              <Link href={""}>Interpretaciones</Link>
+              <Link href={"#"}>Interpretaciones</Link>
             </li>
             <li className="px-3 py-2" onClick={handleMenuClick}>
-              <Link href={""}>Traducciones Juradas</Link>
+              <Link href={"#"}>Traducciones Juradas</Link>
             </li>
             <li className="px-3 py-2" onClick={handleMenuClick}>
               <Link href={"#contact"}>Contacto</Link>
