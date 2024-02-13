@@ -8,24 +8,11 @@
   box-sizing: border-box;
 }
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-.hero-section {
-  background: url("/hero-image.jpg");
-  background-size: cover;
-  background-position: 68% 10%;
+@layer utilities {
+  
+  .hero-section {
+    background: url("/hero-image.jpg");
+    background-size: cover;
+    background-position: 68% 10%;
+  }
 }
