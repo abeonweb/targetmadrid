@@ -108,6 +108,7 @@ const Form = () => {
           className="mb-3 py-2 px-4 rounded-2xl border border-gray-400"
           value={nombre}
           onChange={handleFormUpdate}
+          autoComplete="true"
         />
         <input
           type="email"
@@ -117,6 +118,7 @@ const Form = () => {
           className="mb-3 py-2 px-4 rounded-2xl border border-gray-400"
           value={email}
           onChange={handleFormUpdate}
+          autoComplete="true"
         />
         <input
           type="text"
