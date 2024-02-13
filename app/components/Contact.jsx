@@ -66,11 +66,11 @@ const Contact = () => {
               </p>
             </div>
             <div className="w-full h-60 lg:h-[420px] px-4 lg:px-8 lg:pb-8 mx-auto">
-              <iframe
+              {/* <iframe
                 width="100%"
                 height="100%"
                 src="https://maps.google.com/maps?width=100%25&amp;height=100%&amp;hl=en&amp;q=calle%20Santiago%20Bernab%C3%A9u%204,%2028036%20Madrid+(Target%20Translations)&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-              />
+              /> */}
             </div>
           </div>
         </div>
